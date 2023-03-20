@@ -5,4 +5,6 @@ export const colors = {
 	lightGray: '#8F8F8F',
 	darkGray: '#A4A4A4',
 	turquoise: '#00A0AB',
+	skeleton: '#EAEAEA',
+	skeletonLightGray: '#F8F8F8',
 };

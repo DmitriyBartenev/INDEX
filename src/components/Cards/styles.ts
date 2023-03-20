@@ -2,6 +2,10 @@ import styled from 'styled-components';
 
 import { colors } from '../../styles/colors';
 
+interface LoadMoreButtonProps {
+	cardsEnded: boolean;
+}
+
 export const StyledCards = styled.main`
 	display: flex;
 	flex-direction: column;
@@ -99,7 +103,7 @@ export const StyledMessage = styled.div`
 	}
 `;
 
-export const StyledLoadMoreButton = styled.button`
+export const StyledLoadMoreButton = styled.button<LoadMoreButtonProps>`
 	background-color: transparent;
 	border: none;
 	padding: 8px 15px;
@@ -107,9 +111,12 @@ export const StyledLoadMoreButton = styled.button`
 	font-size: 14px;
 	font-weight: 500;
 	cursor: pointer;
+	display: ${({ cardsEnded }) => (!cardsEnded ? 'block' : 'none')};
 `;
 
 export const StyledHttpError = styled.p`
-	font-size: 22px;
-	font-weight: 700;
+	font-size: 14px;
+	font-weight: 400;
+	color: ${colors.lightGray};
+	margin-bottom: 10px;
 `;

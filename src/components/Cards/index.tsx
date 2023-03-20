@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import { ICard } from '../../models/ICard';
 import CardService from '../../services/CardService';
+import { SkeletonCard, cardsSkeletons } from '../Skeletons/Cards';
+import { SkeletonButton } from '../Skeletons/Buttons';
 
 import { Spinner } from '../Spinner';
 import CardItem from './CardItem';
@@ -43,25 +45,30 @@ const Cards: React.FC = () => {
 		setCardsEnded((_) => ended);
 	};
 
-	const httpError = error ? (
+	const httpError = error && (
 		<StyledHttpError>Ошибка при загрузке</StyledHttpError>
-	) : null;
+	);
 
 	return (
 		<StyledCards>
 			<StyledCardsList>
-				{cards?.map((card) => (
-					<CardItem key={card.id} {...card} />
-				))}
+				{loading && !newItemLoading
+					? cardsSkeletons.map((item) => <SkeletonCard key={item.id} />)
+					: cards?.map((card) => <CardItem key={card.id} {...card} />)}
 			</StyledCardsList>
-			{loading && newItemLoading ? (
-				<Spinner />
-			) : !cardsEnded ? (
-				<StyledLoadMoreButton onClick={() => onRequest(page)}>
-					Показать еще
-				</StyledLoadMoreButton>
-			) : null}
 			{httpError}
+			{loading && !newItemLoading ? (
+				<SkeletonButton />
+			) : loading && newItemLoading ? (
+				<Spinner />
+			) : (
+				<StyledLoadMoreButton
+					onClick={() => onRequest(page)}
+					cardsEnded={cardsEnded}
+				>
+					{httpError ? 'Повторить попытку' : 'Показать еще'}
+				</StyledLoadMoreButton>
+			)}
 		</StyledCards>
 	);
 };

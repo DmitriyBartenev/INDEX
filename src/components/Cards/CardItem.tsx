@@ -23,7 +23,7 @@ const CardItem: React.FC<ICard> = ({
 }) => {
 	return (
 		<StyledCardItem>
-			<img src={FakePhoto} alt="Fake Photo" width={224} height={260} />
+			<img src={FakePhoto} alt="fake" width={224} height={260} />
 			<StyledCardBox>
 				<StyledPrice>
 					<span>{Math.round(price).toLocaleString()} ₽</span>
