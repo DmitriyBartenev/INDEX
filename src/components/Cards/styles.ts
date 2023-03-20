@@ -6,6 +6,10 @@ interface LoadMoreButtonProps {
 	cardsEnded: boolean;
 }
 
+interface IsFavouriteProps {
+	isFavourite: boolean;
+}
+
 export const StyledCards = styled.main`
 	display: flex;
 	flex-direction: column;
@@ -18,7 +22,7 @@ export const StyledCardsList = styled.div`
 	height: 100%;
 	padding: 92px 156px 31px 156px;
 	display: flex;
-	justify-content: space-between;
+	justify-content: center;
 	align-items: flex-start;
 	flex-wrap: wrap;
 `;
@@ -60,7 +64,7 @@ export const StyledCardBox = styled.div`
 	}
 `;
 
-export const StyledPrice = styled.div`
+export const StyledPrice = styled.div<IsFavouriteProps>`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
@@ -69,20 +73,23 @@ export const StyledPrice = styled.div`
 		font-size: 22px;
 		font-weight: 700;
 	}
-	svg {
-		cursor: pointer;
-		path {
-			transition: 0.2s;
-			fill: ${colors.gray};
-		}
-		:hover {
+	button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		border: none;
+		background-color: transparent;
+		svg {
+			cursor: pointer;
 			path {
-				fill: ${colors.darkGray};
+				transition: 0.2s;
+				fill: ${({ isFavourite }) =>
+					isFavourite ? colors.turquoise : colors.gray};
 			}
-		}
-		:active {
-			path {
-				fill: ${colors.turquoise};
+			:hover {
+				path {
+					fill: ${({ isFavourite }) => (isFavourite ? '' : colors.darkGray)};
+				}
 			}
 		}
 	}

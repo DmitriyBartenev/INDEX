@@ -8,11 +8,11 @@ const SpinnerAnimation = keyframes`
 const StyledSpinner = styled.div`
 	margin: 0 auto;
 	margin-bottom: 400px;
-	width: 20px;
-	height: 20px;
+	width: 33px;
+	height: 33px;
 	border-radius: 50%;
-	border: 3px solid rgba(0, 0, 0, 0.2);
-	border-top-color: rgba(0, 0, 0, 0.6);
+	border: 5px solid rgba(171, 207, 208, 0.3);
+	border-top-color: rgba(171, 207, 208, 1);
 	animation: ${SpinnerAnimation} 1s ease-in-out infinite;
 `;
 

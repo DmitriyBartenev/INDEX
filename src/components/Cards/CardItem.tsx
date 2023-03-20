@@ -24,14 +24,15 @@ const CardItem: React.FC<ICard> = ({
 	createdAt,
 	address,
 }) => {
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const [isFavourite, setFavourite] = useState(false);
+
 	const images = [
 		{ id: 1, src: 'https://source.unsplash.com/random/300x300' },
 		{ id: 2, src: 'https://source.unsplash.com/random/400x400' },
 		{ id: 3, src: 'https://source.unsplash.com/random/500x500' },
 		{ id: 4, src: 'https://source.unsplash.com/random/600x600' },
 	];
-
-	const [currentIndex, setCurrentIndex] = useState(0);
 
 	const dotStyles = Array.from({ length: 4 }, (_, i) => {
 		return {
@@ -81,9 +82,11 @@ const CardItem: React.FC<ICard> = ({
 				</StyledSliderActions>
 			</StyledCardSlider>
 			<StyledCardBox>
-				<StyledPrice>
+				<StyledPrice isFavourite={isFavourite}>
 					<span>{Math.round(price).toLocaleString()} ₽</span>
-					<LikeIcon />
+					<button onClick={() => setFavourite(!isFavourite)}>
+						<LikeIcon />
+					</button>
 				</StyledPrice>
 				<p>{title}</p>
 				<StyledCardFooter>
