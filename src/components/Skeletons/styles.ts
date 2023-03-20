@@ -14,7 +14,7 @@ const pulse = keyframes`
     }
 `;
 
-export const StyledSkeleton = styled.div`
+export const StyledSkeleton = styled.span`
 	width: 224px;
 	height: 364px;
 	margin: 12px;
@@ -28,7 +28,7 @@ export const StyledSkeletonImage = styled.div`
 	border-radius: 12px 12px 0 0;
 `;
 
-export const StyledSkeletonBox = styled.div`
+export const StyledSkeletonBox = styled.span`
 	background-color: ${colors.skeletonLightGray};
 	height: 104px;
 	border-radius: 0 0 12px 12px;
@@ -37,27 +37,27 @@ export const StyledSkeletonBox = styled.div`
 	padding: 10px 12px 19px 12px;
 `;
 
-export const StyledSkeletonPrice = styled.div`
+export const StyledSkeletonPrice = styled.span`
 	width: 100%;
 	display: flex;
 	justify-content: space-between;
 `;
 
-export const StyledSkeletonPriceValue = styled.div`
+export const StyledSkeletonPriceValue = styled.span`
 	background-color: ${colors.skeleton};
 	width: 166px;
 	height: 25px;
 	border-radius: 8px;
 `;
 
-export const StyledSkeletonLike = styled.div`
+export const StyledSkeletonLike = styled.span`
 	background-color: ${colors.skeleton};
 	border-radius: 8px;
 	width: 25px;
 	height: 25px;
 `;
 
-export const StyledSkeletonBlock = styled.div`
+export const StyledSkeletonBlock = styled.span`
 	width: 100%;
 	margin-top: 10px;
 	height: 16px;
@@ -65,7 +65,7 @@ export const StyledSkeletonBlock = styled.div`
 	border-radius: 6px;
 `;
 
-export const StyledSkeletonButton = styled.div`
+export const StyledSkeletonButton = styled.span`
 	height: 32px;
 	width: 125px;
 	background-color: ${colors.skeleton};

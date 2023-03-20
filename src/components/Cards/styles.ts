@@ -25,7 +25,6 @@ export const StyledCardsList = styled.div`
 
 export const StyledCardItem = styled.div`
 	width: 224px;
-	position: relative;
 	margin: 12px;
 	display: flex;
 	flex-direction: column;
@@ -33,10 +32,22 @@ export const StyledCardItem = styled.div`
 	-webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.08);
 	-moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.08);
 	box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.08);
+`;
+
+export const StyledCardSlider = styled.div`
+	position: relative;
+	width: 224px;
+	height: 260px;
 	img {
 		border-radius: 12px 12px 0 0;
-		width: 100%;
-		pointer-events: none;
+		opacity: 0;
+		object-fit: cover;
+		transition: opacity ease-in-out 0.4s;
+		top: 0;
+		position: absolute;
+	}
+	.active-img {
+		opacity: 1;
 	}
 `;
 
@@ -119,4 +130,48 @@ export const StyledHttpError = styled.p`
 	font-weight: 400;
 	color: ${colors.lightGray};
 	margin-bottom: 10px;
+`;
+
+export const StyledSliderIndicators = styled.div`
+	width: 100%;
+	height: 8px;
+	position: absolute;
+	bottom: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	span {
+		background-color: ${colors.turquoise};
+		width: 8px;
+		height: 8px;
+		margin: 0 4px;
+		border-radius: 50%;
+	}
+`;
+
+export const StyledSliderActions = styled.div`
+	position: absolute;
+	padding: 0 10px;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	top: 50%;
+	button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+		:first-child {
+			transform: rotate(180deg);
+		}
+		svg {
+			fill: #111;
+			transition: 0.2s;
+			:hover {
+				fill: ${colors.turquoise};
+			}
+		}
+	}
 `;
