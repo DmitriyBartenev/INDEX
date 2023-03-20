@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { ICard } from '../../models/ICard';
+import { dateConverter } from '../../helpers/dateConverter';
 
 import {
 	StyledCardItem,
@@ -20,10 +21,6 @@ const CardItem: React.FC<ICard> = ({
 	createdAt,
 	address,
 }) => {
-	const date = new Date(createdAt.split(' ')[0]);
-	const readableDate =
-		date.toLocaleDateString() + ', ' + date.toLocaleTimeString();
-
 	return (
 		<StyledCardItem>
 			<img src={FakePhoto} alt="Fake Photo" width={224} height={260} />
@@ -35,7 +32,7 @@ const CardItem: React.FC<ICard> = ({
 				<p>{title}</p>
 				<StyledCardFooter>
 					<span>{address}</span>
-					<span>{readableDate}</span>
+					<span>{dateConverter(createdAt)}</span>
 				</StyledCardFooter>
 				{seen && (
 					<StyledMessage>

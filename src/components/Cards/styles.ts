@@ -2,17 +2,25 @@ import styled from 'styled-components';
 
 import { colors } from '../../styles/colors';
 
-export const StyledCards = styled.section`
+export const StyledCards = styled.main`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+`;
+
+export const StyledCardsList = styled.div`
 	width: 100%;
 	height: 100%;
-	padding: 92px 156px;
+	padding: 92px 156px 31px 156px;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: flex-start;
 	flex-wrap: wrap;
 `;
 
 export const StyledCardItem = styled.div`
+	width: 224px;
 	position: relative;
 	margin: 12px;
 	display: flex;
@@ -89,4 +97,19 @@ export const StyledMessage = styled.div`
 		font-weight: 400;
 		user-select: none;
 	}
+`;
+
+export const StyledLoadMoreButton = styled.button`
+	background-color: transparent;
+	border: none;
+	padding: 8px 15px;
+	color: ${colors.turquoise};
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+`;
+
+export const StyledHttpError = styled.p`
+	font-size: 22px;
+	font-weight: 700;
 `;
