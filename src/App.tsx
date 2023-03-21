@@ -7,7 +7,7 @@ import Page404 from './pages/404';
 
 const App: React.FC = () => {
 	return (
-		<Router>
+		<Router basename={process.env.PUBLIC_URL}>
 			<Routes>
 				<Route path="/" element={<MainPage />} />
 				<Route path="/:id" element={<SingleCardPage />} />
