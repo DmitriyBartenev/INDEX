@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import { ICard } from '../models/ICard';
 import axios from 'axios';
 
-const CardService = () => {
+const useCardService = () => {
 	const _apiURL = 'https://testguru.ru/frontend-test/api/v1/items';
 	const _initialPage = 1;
 
@@ -28,7 +29,27 @@ const CardService = () => {
 		}
 	};
 
-	return { getAllCards, loading, error };
+	const getCard = async (id: string) => {
+		const response = await axios.get(`${_apiURL}/${id}`);
+
+		return _transformCard(response.data);
+	};
+
+	const _transformCard = (card: ICard) => {
+		return {
+			id: card.id,
+			seen: card.seen,
+			price: card.price,
+			title: card.title,
+			address: card.address,
+			about: card.about,
+			createdAt: card.createdAt,
+		};
+	};
+
+	const clearError = () => setError(false);
+
+	return { getAllCards, getCard, loading, error, clearError };
 };
 
-export default CardService;
+export default useCardService;

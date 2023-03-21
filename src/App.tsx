@@ -1,12 +1,19 @@
 import React from 'react';
-import Cards from './components/Cards';
-import ErrorBoundary from './components/ErrorBoundary';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import MainPage from './pages/MainPage';
+import SingleCardPage from './pages/SingleCardPage';
+import Page404 from './pages/404';
 
 const App: React.FC = () => {
 	return (
-		<ErrorBoundary>
-			<Cards />
-		</ErrorBoundary>
+		<Router>
+			<Routes>
+				<Route path="/" element={<MainPage />} />
+				<Route path="/id" element={<SingleCardPage />} />
+				<Route path="*" element={<Page404 />} />
+			</Routes>
+		</Router>
 	);
 };
 
