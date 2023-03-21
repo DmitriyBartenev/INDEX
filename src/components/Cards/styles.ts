@@ -30,6 +30,9 @@ export const StyledCardsList = styled.div`
 	justify-content: center;
 	align-items: flex-start;
 	flex-wrap: wrap;
+	a {
+		text-decoration: none;
+	}
 `;
 
 export const StyledCardItem = styled.div<ActiveLayoutProps>`
@@ -44,6 +47,10 @@ export const StyledCardItem = styled.div<ActiveLayoutProps>`
 	-webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.08);
 	-moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.08);
 	box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.08);
+	transition: 0.2s;
+	:hover {
+		transform: translateY(-5px);
+	}
 `;
 
 export const StyledCardSlider = styled.div<ActiveLayoutProps>`

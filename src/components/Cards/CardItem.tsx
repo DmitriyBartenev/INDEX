@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { ICard } from '../../models/ICard';
 import { ILayout } from '../../models/ILayout';
@@ -29,6 +30,7 @@ const CardItem: React.FC<ICard & CardItemProps> = ({
 	createdAt,
 	address,
 	activeLayout,
+	id,
 }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [isFavourite, setFavourite] = useState<boolean>(false);
@@ -95,7 +97,9 @@ const CardItem: React.FC<ICard & CardItemProps> = ({
 							<LikeIcon />
 						</button>
 					</StyledPrice>
-					<p>{title}</p>
+					<Link to={`/${id}`}>
+						<p>{title}</p>
+					</Link>
 				</div>
 				<StyledCardFooter>
 					<span>{address}</span>
