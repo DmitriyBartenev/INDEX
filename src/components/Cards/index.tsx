@@ -4,7 +4,7 @@ import { ICard } from '../../models/ICard';
 import { ILayout } from '../../models/ILayout';
 import CardService from '../../services/CardService';
 import { SkeletonCard, cardsSkeletons } from '../Skeletons/Cards';
-import { SkeletonButton } from '../Skeletons/Buttons';
+import { SkeletonButton, SkeletonSwitchButton } from '../Skeletons/Buttons';
 
 import { Spinner } from '../Spinner';
 import CardItem from './CardItem';
@@ -71,34 +71,40 @@ const Cards: React.FC = () => {
 	return (
 		<>
 			<StyledSwitchLayout>
-				<StyledSquareButton
-					onClick={() =>
-						setActiveLayout((prevState) => ({
-							...prevState,
-							square: true,
-							rectangular: false,
-						}))
-					}
-					activeLayout={activeLayout}
-				>
-					<SquareCardLayout />
-				</StyledSquareButton>
-				<StyledRectangleButton
-					onClick={() =>
-						setActiveLayout((prevState) => ({
-							...prevState,
-							square: false,
-							rectangular: true,
-						}))
-					}
-					activeLayout={activeLayout}
-				>
-					<RectangleCardLayout />
-				</StyledRectangleButton>
+				{loading && !newItemLoading ? (
+					<SkeletonSwitchButton />
+				) : (
+					<>
+						<StyledSquareButton
+							onClick={() =>
+								setActiveLayout((prevState) => ({
+									...prevState,
+									square: true,
+									rectangular: false,
+								}))
+							}
+							activeLayout={activeLayout}
+						>
+							<SquareCardLayout />
+						</StyledSquareButton>
+						<StyledRectangleButton
+							onClick={() =>
+								setActiveLayout((prevState) => ({
+									...prevState,
+									square: false,
+									rectangular: true,
+								}))
+							}
+							activeLayout={activeLayout}
+						>
+							<RectangleCardLayout />
+						</StyledRectangleButton>
+					</>
+				)}
 			</StyledSwitchLayout>
 			<StyledCards>
 				<StyledCardsList>
-					{!loading && !newItemLoading
+					{loading && !newItemLoading
 						? cardsSkeletons.map((item) => (
 								<SkeletonCard key={item.id} activeLayout={activeLayout} />
 						  ))

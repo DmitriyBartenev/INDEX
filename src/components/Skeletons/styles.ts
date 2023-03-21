@@ -103,3 +103,11 @@ export const StyledSkeletonButton = styled.span`
 	border-radius: 45px;
 	animation: ${pulse} 2s linear infinite;
 `;
+
+export const StyledSwitchLayoutButton = styled.span`
+	width: 84px;
+	height: 39px;
+	background-color: ${colors.skeleton};
+	border-radius: 8px;
+	animation: ${pulse} 2s linear infinite;
+`;
