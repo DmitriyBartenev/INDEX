@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 
+import { ICard } from '../../models/ICard';
 import { dateConverter } from '../../helpers/dateConverter';
 import useCardService from '../../services/CardService';
-import { ICard } from '../../models/ICard';
+
+import { Spinner } from '../Spinner';
+import { ErrorMessage } from '../ErrorMessage';
 
 import {
 	StyledSingleCardContainer,
@@ -13,8 +16,6 @@ import {
 	StyledSingleCardFooter,
 	StyledAbout,
 } from './styles';
-import { Spinner } from '../Spinner';
-import { ErrorMessage } from '../ErrorMessage';
 
 const SingleCard: React.FC = () => {
 	const { id } = useParams();
@@ -59,6 +60,7 @@ const SingleCard: React.FC = () => {
 							width={400}
 							height={300}
 							alt="unsplashPhoto"
+							draggable={false}
 						/>
 						<StyledSinlgeCardBox>
 							<span>

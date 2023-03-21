@@ -2,38 +2,26 @@ import React, { useEffect, useState } from 'react';
 
 import { ICard } from '../../models/ICard';
 import { ILayout } from '../../models/ILayout';
-import CardService from '../../services/CardService';
-import { SkeletonCard, cardsSkeletons } from '../Skeletons/Cards';
-import { SkeletonButton, SkeletonSwitchButton } from '../Skeletons/Buttons';
+import useCardService from '../../services/CardService';
 
-import { Spinner } from '../Spinner';
-import CardItem from './CardItem';
+import CardButton from './CardButton';
+import CardsList from './CardsList';
+import SwitchLayout from './SwitchLayout';
+import { HttpErrorMessage } from './HttpErrorMessage';
 
-import {
-	StyledCards,
-	StyledCardsList,
-	StyledLoadMoreButton,
-	StyledHttpError,
-	StyledSwitchLayout,
-	StyledSquareButton,
-	StyledRectangleButton,
-} from './styles';
-import {
-	RectangleCardLayout,
-	SquareCardLayout,
-} from '../ui/icons/SwitchLayout';
+import { StyledCards } from './styles';
 
 const Cards: React.FC = () => {
 	const [cards, setCards] = useState<ICard[]>([]);
-	const [newItemLoading, setNewItemLoading] = useState(false);
-	const [page, setPage] = useState(1);
-	const [cardsEnded, setCardsEnded] = useState(false);
+	const [newItemLoading, setNewItemLoading] = useState<boolean>(false);
+	const [page, setPage] = useState<number>(1);
+	const [cardsEnded, setCardsEnded] = useState<boolean>(false);
 	const [activeLayout, setActiveLayout] = useState<ILayout>({
 		square: true,
 		rectangular: false,
 	});
 
-	const { getAllCards, loading, error } = CardService();
+	const { getAllCards, loading, error } = useCardService();
 
 	useEffect(() => {
 		onRequest(page, true);
@@ -64,67 +52,30 @@ const Cards: React.FC = () => {
 		setCardsEnded((_) => ended);
 	};
 
-	const httpError = error && (
-		<StyledHttpError>Ошибка при загрузке</StyledHttpError>
-	);
-
 	return (
 		<>
-			<StyledSwitchLayout>
-				{loading && !newItemLoading ? (
-					<SkeletonSwitchButton />
-				) : (
-					<>
-						<StyledSquareButton
-							onClick={() =>
-								setActiveLayout((prevState) => ({
-									...prevState,
-									square: true,
-									rectangular: false,
-								}))
-							}
-							activeLayout={activeLayout}
-						>
-							<SquareCardLayout />
-						</StyledSquareButton>
-						<StyledRectangleButton
-							onClick={() =>
-								setActiveLayout((prevState) => ({
-									...prevState,
-									square: false,
-									rectangular: true,
-								}))
-							}
-							activeLayout={activeLayout}
-						>
-							<RectangleCardLayout />
-						</StyledRectangleButton>
-					</>
-				)}
-			</StyledSwitchLayout>
+			<SwitchLayout
+				loading={loading}
+				newItemLoading={newItemLoading}
+				activeLayout={activeLayout}
+				setActiveLayout={setActiveLayout}
+			/>
 			<StyledCards>
-				<StyledCardsList>
-					{loading && !newItemLoading
-						? cardsSkeletons.map((item) => (
-								<SkeletonCard key={item.id} activeLayout={activeLayout} />
-						  ))
-						: cards?.map((card) => (
-								<CardItem key={card.id} {...card} activeLayout={activeLayout} />
-						  ))}
-				</StyledCardsList>
-				{httpError}
-				{loading && !newItemLoading ? (
-					<SkeletonButton />
-				) : loading && newItemLoading ? (
-					<Spinner />
-				) : (
-					<StyledLoadMoreButton
-						onClick={() => onRequest(page)}
-						cardsEnded={cardsEnded}
-					>
-						{httpError ? 'Повторить попытку' : 'Показать еще'}
-					</StyledLoadMoreButton>
-				)}
+				<CardsList
+					loading={loading}
+					newItemLoading={newItemLoading}
+					activeLayout={activeLayout}
+					cards={cards}
+				/>
+				{error && <HttpErrorMessage title="Ошибка при загрузке" />}
+				<CardButton
+					loading={loading}
+					newItemLoading={newItemLoading}
+					onRequest={onRequest}
+					page={page}
+					cardsEnded={cardsEnded}
+					error={error}
+				/>
 			</StyledCards>
 		</>
 	);

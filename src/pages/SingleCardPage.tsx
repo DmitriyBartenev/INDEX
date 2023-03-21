@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 
 import SingleCard from '../components/SingleCard';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const SingleCardPage: React.FC = () => {
 	return (
@@ -10,7 +11,9 @@ const SingleCardPage: React.FC = () => {
 				<meta name="Application for Guru Group" content="Test Application" />
 				<title>Card Page</title>
 			</Helmet>
-			<SingleCard />
+			<ErrorBoundary>
+				<SingleCard />
+			</ErrorBoundary>
 		</>
 	);
 };
