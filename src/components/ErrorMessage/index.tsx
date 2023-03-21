@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { StyledErrorMessage } from './styles';
 
 interface ErrorMessageProps {
@@ -11,6 +12,7 @@ export const ErrorMessage: React.FC<ErrorMessageProps> = ({ title, text }) => {
 		<StyledErrorMessage>
 			<h2>{title}</h2>
 			<p>{text}</p>
+			<Link to="/">Back To Main Page</Link>
 		</StyledErrorMessage>
 	);
 };
