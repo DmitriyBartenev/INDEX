@@ -257,3 +257,25 @@ export const StyledRectangleButton = styled.button<ActiveLayoutProps>`
 		}
 	}
 `;
+
+export const StyledScrollUpButton = styled.button`
+	width: 106px;
+	height: 50px;
+	background-color: transparent;
+	border: none;
+	position: fixed;
+	right: 25px;
+	bottom: 63px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.08);
+	border-radius: 30px;
+	font-size: 14px;
+	font-weight: 400;
+	cursor: pointer;
+	color: ${colors.lightGray};
+	path {
+		stroke: ${colors.lightGray};
+	}
+`;

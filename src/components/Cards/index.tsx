@@ -4,6 +4,7 @@ import { ICard } from '../../models/ICard';
 import { ILayout } from '../../models/ILayout';
 import useCardService from '../../services/CardService';
 
+import ScrollUpButton from './ScrollUpButton';
 import CardButton from './CardButton';
 import CardsList from './CardsList';
 import SwitchLayout from './SwitchLayout';
@@ -16,6 +17,7 @@ const Cards: React.FC = () => {
 	const [newItemLoading, setNewItemLoading] = useState<boolean>(false);
 	const [page, setPage] = useState<number>(1);
 	const [cardsEnded, setCardsEnded] = useState<boolean>(false);
+	const [showScroll, setShowScroll] = useState<boolean>(false);
 	const [activeLayout, setActiveLayout] = useState<ILayout>({
 		square: true,
 		rectangular: false,
@@ -25,8 +27,15 @@ const Cards: React.FC = () => {
 
 	useEffect(() => {
 		onRequest(page, true);
+
 		const data = localStorage.getItem('activeLayout');
 		if (data) setActiveLayout(JSON.parse(data));
+
+		window.addEventListener('scroll', checkScrollTop);
+
+		return () => {
+			window.removeEventListener('scroll', checkScrollTop);
+		};
 
 		// eslint-disable-next-line
 	}, []);
@@ -34,6 +43,14 @@ const Cards: React.FC = () => {
 	useEffect(() => {
 		localStorage.setItem('activeLayout', JSON.stringify(activeLayout));
 	});
+
+	const checkScrollTop = () => {
+		if (window.scrollY > 100) {
+			setShowScroll(true);
+		} else {
+			setShowScroll(false);
+		}
+	};
 
 	const onRequest = (page: number, initial?: boolean) => {
 		initial ? setNewItemLoading(false) : setNewItemLoading(true);
@@ -77,6 +94,7 @@ const Cards: React.FC = () => {
 					error={error}
 				/>
 			</StyledCards>
+			{showScroll && <ScrollUpButton />}
 		</>
 	);
 };
