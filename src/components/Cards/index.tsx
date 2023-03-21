@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { ICard } from '../../models/ICard';
+import { ILayout } from '../../models/ILayout';
 import CardService from '../../services/CardService';
 import { SkeletonCard, cardsSkeletons } from '../Skeletons/Cards';
 import { SkeletonButton } from '../Skeletons/Buttons';
@@ -13,13 +14,24 @@ import {
 	StyledCardsList,
 	StyledLoadMoreButton,
 	StyledHttpError,
+	StyledSwitchLayout,
+	StyledSquareButton,
+	StyledRectangleButton,
 } from './styles';
+import {
+	RectangleCardLayout,
+	SquareCardLayout,
+} from '../ui/icons/SwitchLayout';
 
 const Cards: React.FC = () => {
 	const [cards, setCards] = useState<ICard[]>([]);
 	const [newItemLoading, setNewItemLoading] = useState(false);
 	const [page, setPage] = useState(1);
 	const [cardsEnded, setCardsEnded] = useState(false);
+	const [activeLayout, setActiveLayout] = useState<ILayout>({
+		square: true,
+		rectangular: false,
+	});
 
 	const { getAllCards, loading, error } = CardService();
 
@@ -49,27 +61,57 @@ const Cards: React.FC = () => {
 		<StyledHttpError>Ошибка при загрузке</StyledHttpError>
 	);
 
+	console.log(activeLayout);
+
 	return (
-		<StyledCards>
-			<StyledCardsList>
-				{loading && !newItemLoading
-					? cardsSkeletons.map((item) => <SkeletonCard key={item.id} />)
-					: cards?.map((card) => <CardItem key={card.id} {...card} />)}
-			</StyledCardsList>
-			{httpError}
-			{loading && !newItemLoading ? (
-				<SkeletonButton />
-			) : loading && newItemLoading ? (
-				<Spinner />
-			) : (
-				<StyledLoadMoreButton
-					onClick={() => onRequest(page)}
-					cardsEnded={cardsEnded}
+		<>
+			<StyledSwitchLayout>
+				<StyledSquareButton
+					onClick={() =>
+						setActiveLayout((prevState) => ({
+							...prevState,
+							square: true,
+							rectangular: false,
+						}))
+					}
+					activeLayout={activeLayout}
 				>
-					{httpError ? 'Повторить попытку' : 'Показать еще'}
-				</StyledLoadMoreButton>
-			)}
-		</StyledCards>
+					<SquareCardLayout />
+				</StyledSquareButton>
+				<StyledRectangleButton
+					onClick={() =>
+						setActiveLayout((prevState) => ({
+							...prevState,
+							square: false,
+							rectangular: true,
+						}))
+					}
+					activeLayout={activeLayout}
+				>
+					<RectangleCardLayout />
+				</StyledRectangleButton>
+			</StyledSwitchLayout>
+			<StyledCards>
+				<StyledCardsList>
+					{loading && !newItemLoading
+						? cardsSkeletons.map((item) => <SkeletonCard key={item.id} />)
+						: cards?.map((card) => <CardItem key={card.id} {...card} />)}
+				</StyledCardsList>
+				{httpError}
+				{loading && !newItemLoading ? (
+					<SkeletonButton />
+				) : loading && newItemLoading ? (
+					<Spinner />
+				) : (
+					<StyledLoadMoreButton
+						onClick={() => onRequest(page)}
+						cardsEnded={cardsEnded}
+					>
+						{httpError ? 'Повторить попытку' : 'Показать еще'}
+					</StyledLoadMoreButton>
+				)}
+			</StyledCards>
+		</>
 	);
 };
 

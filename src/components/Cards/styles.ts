@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { ILayout } from '../../models/ILayout';
 
 import { colors } from '../../styles/colors';
 
@@ -8,6 +9,10 @@ interface LoadMoreButtonProps {
 
 interface IsFavouriteProps {
 	isFavourite: boolean;
+}
+
+interface ActiveLayoutProps {
+	activeLayout: ILayout;
 }
 
 export const StyledCards = styled.main`
@@ -20,7 +25,7 @@ export const StyledCards = styled.main`
 export const StyledCardsList = styled.div`
 	width: 100%;
 	height: 100%;
-	padding: 92px 156px 31px 156px;
+	padding: 26px 140px 31px 140px;
 	display: flex;
 	justify-content: center;
 	align-items: flex-start;
@@ -179,6 +184,53 @@ export const StyledSliderActions = styled.div`
 			:hover {
 				fill: ${colors.turquoise};
 			}
+		}
+	}
+`;
+
+export const StyledSwitchLayout = styled.div`
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	margin: 35px 35px 0 0;
+	button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: transparent;
+		border: none;
+		cursor: pointer;
+		:last-child {
+			margin-left: 16px;
+		}
+		rect {
+			transition: 0.2s;
+		}
+	}
+`;
+
+export const StyledSquareButton = styled.button<ActiveLayoutProps>`
+	rect {
+		stroke: ${({ activeLayout }) =>
+			activeLayout.square ? colors.turquoise : colors.gray};
+	}
+	:hover {
+		rect {
+			stroke: ${({ activeLayout }) =>
+				activeLayout.square ? '' : colors.darkGray};
+		}
+	}
+`;
+
+export const StyledRectangleButton = styled.button<ActiveLayoutProps>`
+	rect {
+		stroke: ${({ activeLayout }) =>
+			activeLayout.rectangular ? colors.turquoise : colors.gray};
+	}
+	:hover {
+		rect {
+			stroke: ${({ activeLayout }) =>
+				activeLayout.rectangular ? '' : colors.darkGray};
 		}
 	}
 `;
