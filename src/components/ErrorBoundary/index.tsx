@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ErrorMessage } from '../ErrorMessage';
 
 interface Props {
@@ -24,10 +25,13 @@ class ErrorBoundary extends React.Component<Props> {
 	render() {
 		if (this.state.hasError) {
 			return (
-				<ErrorMessage
-					title="Объявлений не найдено"
-					text="Простите, по вашему запросу товаров сейчас нет. Задайте запрос по-другому или измените характеристики"
-				/>
+				<>
+					<ErrorMessage
+						title="Объявлений не найдено"
+						text="Простите, по вашему запросу товаров сейчас нет. Задайте запрос по-другому или измените характеристики"
+					/>
+					<Link to="/">Back To Main</Link>
+				</>
 			);
 		}
 		return this.props.children;
