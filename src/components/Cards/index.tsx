@@ -98,8 +98,10 @@ const Cards: React.FC = () => {
 			</StyledSwitchLayout>
 			<StyledCards>
 				<StyledCardsList>
-					{loading && !newItemLoading
-						? cardsSkeletons.map((item) => <SkeletonCard key={item.id} />)
+					{!loading && !newItemLoading
+						? cardsSkeletons.map((item) => (
+								<SkeletonCard key={item.id} activeLayout={activeLayout} />
+						  ))
 						: cards?.map((card) => (
 								<CardItem key={card.id} {...card} activeLayout={activeLayout} />
 						  ))}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { ILayout } from '../../../models/ILayout';
 
 import {
 	StyledSkeleton,
@@ -8,6 +9,7 @@ import {
 	StyledSkeletonLike,
 	StyledSkeletonBlock,
 	StyledSkeletonPriceValue,
+	StyledSliderSkeleton,
 } from '../styles';
 
 export const cardsSkeletons = [
@@ -23,11 +25,17 @@ export const cardsSkeletons = [
 	{ id: 10 },
 ];
 
-export const SkeletonCard: React.FC = () => {
+interface SkeletonCardProps {
+	activeLayout: ILayout;
+}
+
+export const SkeletonCard: React.FC<SkeletonCardProps> = ({ activeLayout }) => {
 	return (
-		<StyledSkeleton>
-			<StyledSkeletonImage />
-			<StyledSkeletonBox>
+		<StyledSkeleton activeLayout={activeLayout}>
+			<StyledSkeletonImage activeLayout={activeLayout}>
+				<StyledSliderSkeleton />
+			</StyledSkeletonImage>
+			<StyledSkeletonBox activeLayout={activeLayout}>
 				<StyledSkeletonPrice>
 					<StyledSkeletonPriceValue />
 					<StyledSkeletonLike />
