@@ -37,8 +37,15 @@ const Cards: React.FC = () => {
 
 	useEffect(() => {
 		onRequest(page, true);
+		const data = localStorage.getItem('activeLayout');
+		if (data) setActiveLayout(JSON.parse(data));
+
 		// eslint-disable-next-line
 	}, []);
+
+	useEffect(() => {
+		localStorage.setItem('activeLayout', JSON.stringify(activeLayout));
+	});
 
 	const onRequest = (page: number, initial?: boolean) => {
 		initial ? setNewItemLoading(false) : setNewItemLoading(true);
@@ -60,8 +67,6 @@ const Cards: React.FC = () => {
 	const httpError = error && (
 		<StyledHttpError>Ошибка при загрузке</StyledHttpError>
 	);
-
-	console.log(activeLayout);
 
 	return (
 		<>
@@ -95,7 +100,9 @@ const Cards: React.FC = () => {
 				<StyledCardsList>
 					{loading && !newItemLoading
 						? cardsSkeletons.map((item) => <SkeletonCard key={item.id} />)
-						: cards?.map((card) => <CardItem key={card.id} {...card} />)}
+						: cards?.map((card) => (
+								<CardItem key={card.id} {...card} activeLayout={activeLayout} />
+						  ))}
 				</StyledCardsList>
 				{httpError}
 				{loading && !newItemLoading ? (

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { ICard } from '../../models/ICard';
+import { ILayout } from '../../models/ILayout';
 import { dateConverter } from '../../helpers/dateConverter';
 
 import {
@@ -17,15 +18,20 @@ import {
 import { LikeIcon } from '../ui/icons/LikeIcon';
 import { SliderArrow } from '../ui/icons/SliderArrow';
 
-const CardItem: React.FC<ICard> = ({
+interface CardItemProps {
+	activeLayout: ILayout;
+}
+
+const CardItem: React.FC<ICard & CardItemProps> = ({
 	seen,
 	price,
 	title,
 	createdAt,
 	address,
+	activeLayout,
 }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
-	const [isFavourite, setFavourite] = useState(false);
+	const [isFavourite, setFavourite] = useState<boolean>(false);
 
 	const images = [
 		{ id: 1, src: 'https://source.unsplash.com/random/300x300' },
@@ -49,8 +55,8 @@ const CardItem: React.FC<ICard> = ({
 	};
 
 	return (
-		<StyledCardItem>
-			<StyledCardSlider>
+		<StyledCardItem activeLayout={activeLayout}>
+			<StyledCardSlider activeLayout={activeLayout}>
 				{images.map((item, index) => (
 					<img
 						src={item.src}
@@ -82,13 +88,15 @@ const CardItem: React.FC<ICard> = ({
 				</StyledSliderActions>
 			</StyledCardSlider>
 			<StyledCardBox>
-				<StyledPrice isFavourite={isFavourite}>
-					<span>{Math.round(price).toLocaleString()} ₽</span>
-					<button onClick={() => setFavourite(!isFavourite)}>
-						<LikeIcon />
-					</button>
-				</StyledPrice>
-				<p>{title}</p>
+				<div>
+					<StyledPrice isFavourite={isFavourite}>
+						<span>{Math.round(price).toLocaleString()} ₽</span>
+						<button onClick={() => setFavourite(!isFavourite)}>
+							<LikeIcon />
+						</button>
+					</StyledPrice>
+					<p>{title}</p>
+				</div>
 				<StyledCardFooter>
 					<span>{address}</span>
 					<span>{dateConverter(createdAt)}</span>

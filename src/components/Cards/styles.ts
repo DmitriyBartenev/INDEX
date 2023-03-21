@@ -32,24 +32,30 @@ export const StyledCardsList = styled.div`
 	flex-wrap: wrap;
 `;
 
-export const StyledCardItem = styled.div`
-	width: 224px;
+export const StyledCardItem = styled.div<ActiveLayoutProps>`
+	width: ${({ activeLayout }) => (activeLayout.square ? '224px' : '472px')};
+	height: ${({ activeLayout }) => (activeLayout.square ? '100%' : '134px')};
 	margin: 12px;
 	display: flex;
-	flex-direction: column;
+	flex-direction: ${({ activeLayout }) =>
+		activeLayout.square ? 'column' : 'row'};
+	justify-content: space-between;
 	border-radius: 12px;
 	-webkit-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.08);
 	-moz-box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.08);
 	box-shadow: 0px 0px 16px 0px rgba(0, 0, 0, 0.08);
 `;
 
-export const StyledCardSlider = styled.div`
+export const StyledCardSlider = styled.div<ActiveLayoutProps>`
 	position: relative;
-	width: 224px;
-	height: 260px;
+	min-width: ${({ activeLayout }) => (activeLayout.square ? '224px' : '156px')};
+	height: ${({ activeLayout }) => (activeLayout.square ? '260px' : '134px')};
 	img {
-		border-radius: 12px 12px 0 0;
+		border-radius: ${({ activeLayout }) =>
+			activeLayout.square ? '12px 12px 0 0' : '12px 0 0 12px'};
 		opacity: 0;
+		width: ${({ activeLayout }) => (activeLayout.square ? '224px' : '156px')};
+		height: ${({ activeLayout }) => (activeLayout.square ? '260px' : '134px')};
 		object-fit: cover;
 		transition: opacity ease-in-out 0.4s;
 		top: 0;
@@ -62,6 +68,11 @@ export const StyledCardSlider = styled.div`
 
 export const StyledCardBox = styled.div`
 	padding: 10px 12px 19px 12px;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 	p {
 		margin: 10px 0;
 		font-size: 14px;
@@ -77,6 +88,7 @@ export const StyledPrice = styled.div<IsFavouriteProps>`
 	span {
 		font-size: 22px;
 		font-weight: 700;
+		width: 100px;
 	}
 	button {
 		display: flex;
@@ -103,10 +115,14 @@ export const StyledPrice = styled.div<IsFavouriteProps>`
 export const StyledCardFooter = styled.div`
 	display: flex;
 	justify-content: space-between;
+	width: 100%;
 	span {
 		color: ${colors.lightGray};
 		font-size: 12px;
 		font-weight: 400;
+		:last-child {
+			text-align: right;
+		}
 	}
 `;
 
